@@ -15,6 +15,7 @@ from urllib.request import Request, urlopen
 
 
 GITHUB_GRAPHQL_API = "https://api.github.com/graphql"
+LOCAL_TIMEZONE = timezone(timedelta(hours=7), "ICT")
 
 QUERY = """
 query($login: String!, $from: DateTime!, $to: DateTime!) {
@@ -95,18 +96,21 @@ def fetch_contributions(
     username: str,
     token: str,
     number_of_days: int,
+    generated_at: datetime,
 ) -> list[dict[str, Any]]:
-    now = datetime.now(timezone.utc)
-    first_date = now.date() - timedelta(days=number_of_days - 1)
-    start = datetime.combine(first_date, datetime.min.time(), tzinfo=timezone.utc)
+    local_now = generated_at.astimezone(LOCAL_TIMEZONE)
+    first_date = local_now.date() - timedelta(days=number_of_days - 1)
+    start = datetime.combine(first_date, datetime.min.time(), tzinfo=LOCAL_TIMEZONE)
+    start_utc = start.astimezone(timezone.utc)
+    now_utc = local_now.astimezone(timezone.utc)
 
     request_body = json.dumps(
         {
             "query": QUERY,
             "variables": {
                 "login": username,
-                "from": start.isoformat().replace("+00:00", "Z"),
-                "to": now.isoformat().replace("+00:00", "Z"),
+                "from": start_utc.isoformat().replace("+00:00", "Z"),
+                "to": now_utc.isoformat().replace("+00:00", "Z"),
             },
         }
     ).encode("utf-8")
@@ -181,6 +185,14 @@ def fmt(value: float) -> str:
     return f"{value:.2f}".rstrip("0").rstrip(".")
 
 
+def clamp(value: float, minimum: float, maximum: float) -> float:
+    return max(minimum, min(value, maximum))
+
+
+def key_times(*values: float) -> str:
+    return ";".join(fmt(value) for value in values)
+
+
 def generate_svg(
     username: str,
     contributions: list[dict[str, Any]],
@@ -191,13 +203,13 @@ def generate_svg(
     character_data_uri = image_to_data_uri(character_image)
 
     width = 960
-    height = 250
+    height = 180
     panel_x = 20
     panel_y = 20
     panel_width = 920
-    panel_height = 210
+    panel_height = 140
     start_x = 55
-    block_y = 145
+    block_y = 105
     available_width = 850
     block_count = len(contributions)
     block_step = available_width / max(block_count - 1, 1)
@@ -206,28 +218,43 @@ def generate_svg(
 
     character_width = 132
     character_height = 98
-    character_y = 58
-    character_center_x = character_width / 2
-    character_start_x = start_x + available_width - 6
-    character_end_x = start_x - character_center_x
-    animation_duration = max(8, min(24, block_count * 0.6))
-
-    total_contributions = sum(
-        int(contribution["contributionCount"]) for contribution in contributions
-    )
+    character_y = 35
+    mouth_offset_x = 14
+    character_start_x = start_x + available_width + 70
+    character_end_x = start_x - character_width + 6
+    travel_distance = character_start_x - character_end_x
+    animation_duration = max(6, min(11, block_count * 0.32))
 
     blocks = []
     for index, contribution in enumerate(contributions):
         x_position = start_x + index * block_step
+        block_center_x = x_position + (block_size / 2)
         level = str(contribution["contributionLevel"])
         level_index = LEVEL_INDEX.get(level, 0)
         color = theme["levels"][level_index]
-        delay = (block_count - index - 1) * animation_duration / block_count
+        eat_at = (
+            character_start_x
+            + mouth_offset_x
+            - block_center_x
+        ) / travel_distance
+        eat_at = clamp(eat_at, 0.08, 0.9)
+        hold_until = clamp(eat_at - 0.025, 0.04, 0.88)
+        bite_until = clamp(eat_at + 0.035, hold_until + 0.01, 0.94)
+        vanish_at = clamp(eat_at + 0.07, bite_until + 0.01, 0.96)
+        restore_at = 0.985
+        block_key_times = key_times(
+            0,
+            hold_until,
+            bite_until,
+            vanish_at,
+            restore_at,
+            1,
+        )
         count = int(contribution["contributionCount"])
         date = html.escape(str(contribution["date"]))
         suffix = "" if count == 1 else "s"
         title = f"{date}: {count} contribution{suffix}"
-        bite_x = x_position - 28
+        bite_x = x_position + 22
         bite_y = block_y - 18
 
         blocks.append(
@@ -245,40 +272,40 @@ def generate_svg(
     <animate
       attributeName="opacity"
       values="1;1;.45;0;0;1"
-      keyTimes="0;.03;.08;.14;.72;1"
-      begin="{fmt(delay)}s"
+      keyTimes="{block_key_times}"
+      begin="0s"
       dur="{fmt(animation_duration)}s"
       repeatCount="indefinite"
     />
     <animate
       attributeName="x"
       values="{fmt(x_position)};{fmt(x_position)};{fmt(bite_x)};{fmt(bite_x)};{fmt(x_position)}"
-      keyTimes="0;.03;.12;.72;1"
-      begin="{fmt(delay)}s"
+      keyTimes="{key_times(0, hold_until, bite_until, restore_at, 1)}"
+      begin="0s"
       dur="{fmt(animation_duration)}s"
       repeatCount="indefinite"
     />
     <animate
       attributeName="y"
       values="{block_y};{block_y};{fmt(bite_y)};{fmt(bite_y)};{block_y}"
-      keyTimes="0;.03;.12;.72;1"
-      begin="{fmt(delay)}s"
+      keyTimes="{key_times(0, hold_until, bite_until, restore_at, 1)}"
+      begin="0s"
       dur="{fmt(animation_duration)}s"
       repeatCount="indefinite"
     />
     <animate
       attributeName="width"
       values="{fmt(block_size)};{fmt(block_size)};4;0;0;{fmt(block_size)}"
-      keyTimes="0;.03;.08;.14;.72;1"
-      begin="{fmt(delay)}s"
+      keyTimes="{block_key_times}"
+      begin="0s"
       dur="{fmt(animation_duration)}s"
       repeatCount="indefinite"
     />
     <animate
       attributeName="height"
       values="{fmt(block_size)};{fmt(block_size)};4;0;0;{fmt(block_size)}"
-      keyTimes="0;.03;.08;.14;.72;1"
-      begin="{fmt(delay)}s"
+      keyTimes="{block_key_times}"
+      begin="0s"
       dur="{fmt(animation_duration)}s"
       repeatCount="indefinite"
     />
@@ -287,9 +314,6 @@ def generate_svg(
         )
 
     safe_username = html.escape(username)
-    first_date = html.escape(str(contributions[0]["date"]))
-    last_date = html.escape(str(contributions[-1]["date"]))
-    updated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
     return f"""<svg
   xmlns="http://www.w3.org/2000/svg"
@@ -313,28 +337,11 @@ def generate_svg(
     stroke="{theme['border']}"
   />
 
-  <text
-    x="48"
-    y="60"
-    fill="{theme['text']}"
-    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-    font-size="22"
-    font-weight="700"
-  >Last {block_count} Days of Building</text>
-
-  <text
-    x="48"
-    y="88"
-    fill="{theme['muted']}"
-    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-    font-size="14"
-  >{safe_username} - {total_contributions} contributions</text>
-
   <line
     x1="45"
-    y1="155"
+    y1="115"
     x2="915"
-    y2="155"
+    y2="115"
     stroke="{theme['border']}"
     stroke-width="2"
   />
@@ -366,32 +373,6 @@ def generate_svg(
       />
     </g>
   </g>
-
-  <text
-    x="55"
-    y="198"
-    fill="{theme['muted']}"
-    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-    font-size="12"
-  >{first_date}</text>
-
-  <text
-    x="905"
-    y="198"
-    text-anchor="end"
-    fill="{theme['muted']}"
-    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-    font-size="12"
-  >{last_date}</text>
-
-  <text
-    x="905"
-    y="218"
-    text-anchor="end"
-    fill="{theme['muted']}"
-    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-    font-size="11"
-  >Updated {updated_at}</text>
 </svg>
 """
 
@@ -411,10 +392,12 @@ def main() -> None:
     if not character_image.is_absolute():
         character_image = repository_root / character_image
 
+    generated_at = datetime.now(LOCAL_TIMEZONE)
     contributions = fetch_contributions(
         username=arguments.username,
         token=github_token,
         number_of_days=arguments.days,
+        generated_at=generated_at,
     )
     svg = generate_svg(
         username=arguments.username,
