@@ -3,16 +3,8 @@
 <h3 align="center">Aspiring DevOps Engineer from Ho Chi Minh City, Vietnam</h3>
 
 <p align="center">
-  I am passionate about cloud infrastructure, automation, CI/CD, containers, and reliable software delivery.
-</p>
-
-<p align="center">
-  <a href="mailto:manhtan06120@gmail.com">
-    <img src="https://img.shields.io/badge/Email-manhtan06120%40gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white" alt="Email" />
-  </a>
-  <a href="https://www.linkedin.com/in/phanmanhtan">
-    <img src="https://img.shields.io/badge/LinkedIn-Phan_Manh_Tan-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" />
-  </a>
+  <a href="mailto:manhtan06120@gmail.com"><img src="https://img.shields.io/badge/Email-manhtan06120%40gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white" alt="Email"></a>
+  <a href="https://www.linkedin.com/in/phanmanhtan"><img src="https://img.shields.io/badge/LinkedIn-Phan_Manh_Tan-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
 </p>
 
 ---
