@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
 
   schedule:
-  # Chạy mỗi ngày lúc 00:15 theo giờ Việt Nam
-  # GitHub Actions sử dụng UTC: 17:15 UTC = 00:15 UTC+7
+# 00:15 mỗi ngày theo giờ Việt Nam
   - cron: "15 17 * * *"
 
 permissions:
@@ -16,23 +15,31 @@ jobs:
     name: Generate Oguri Contribution Animation
     runs-on: ubuntu-latest
 
+    
     steps:
-    - name: Checkout profile repository
-      uses: actions/checkout@v4
-
-    - name: Generate light and dark SVGs
-      uses: mquangpham575/oguri-action@v1
-      with:
-        github_user_name: PhanManhTan
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        outputs: |
-          public/oguri-run.svg?palette=github-light
-          public/oguri-run-dark.svg?palette=github-dark
-
-    - name: Publish SVGs to gh-pages branch
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: gh-pages
-        publish_dir: ./public
-        commit_message: "chore: update contribution animation"
+      - name: Checkout profile repository
+        uses: actions/checkout@v4
+    
+      - name: Prepare output directory
+        run: mkdir -p public
+    
+      - name: Generate Oguri SVG
+        uses: mquangpham575/oguri-action@v1
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          svg_out_path: public/oguri-run.svg
+    
+      - name: Verify generated SVG
+        run: |
+          test -f public/oguri-run.svg
+          ls -lah public
+    
+      - name: Publish SVG to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./public
+          force_orphan: true
+          full_commit_message: "chore: update contribution animation"
