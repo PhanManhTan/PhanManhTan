@@ -85,7 +85,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--character-image",
         type=Path,
-        default=Path("assets/docker-whale.jpg"),
+        default=Path("assets/docker-whale-transparent.png"),
         help="Image to embed as the animated character.",
     )
     return parser.parse_args()
@@ -204,12 +204,15 @@ def generate_svg(
     block_size = min(20.0, max(4.0, block_step * 0.72))
     block_radius = min(5.0, block_size / 4)
 
-    runner_width = 92
-    runner_height = 92
-    runner_y = 72
-    runner_start_x = start_x - (runner_width / 2) + (block_size / 2)
-    runner_end_x = start_x + available_width - (runner_width / 2) + (block_size / 2)
+    character_width = 122
+    character_height = 90
+    character_y = 62
+    character_center_x = character_width / 2
+    character_center_y = character_height / 2
+    character_start_x = start_x - character_center_x + (block_size / 2)
+    character_end_x = start_x + available_width - character_center_x + (block_size / 2)
     animation_duration = max(8, min(24, block_count * 0.6))
+    spin_duration = 1.5
 
     total_contributions = sum(
         int(contribution["contributionCount"]) for contribution in contributions
@@ -310,25 +313,25 @@ def generate_svg(
     <animateTransform
       attributeName="transform"
       type="translate"
-      values="{fmt(runner_start_x)} {runner_y};{fmt(runner_end_x)} {runner_y}"
+      values="{fmt(character_start_x)} {character_y};{fmt(character_end_x)} {character_y}"
       dur="{fmt(animation_duration)}s"
       repeatCount="indefinite"
     />
-    <image
-      href="{character_data_uri}"
-      width="{runner_width}"
-      height="{runner_height}"
-      preserveAspectRatio="xMidYMid meet"
-    >
+    <g>
       <animateTransform
         attributeName="transform"
-        type="translate"
-        values="0 0;0 -7;0 0"
-        keyTimes="0;.5;1"
-        dur=".8s"
+        type="rotate"
+        values="0 {fmt(character_center_x)} {fmt(character_center_y)};360 {fmt(character_center_x)} {fmt(character_center_y)}"
+        dur="{fmt(spin_duration)}s"
         repeatCount="indefinite"
       />
-    </image>
+      <image
+        href="{character_data_uri}"
+        width="{character_width}"
+        height="{character_height}"
+        preserveAspectRatio="xMidYMid meet"
+      />
+    </g>
   </g>
 
   <text
