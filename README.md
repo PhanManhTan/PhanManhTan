@@ -88,13 +88,14 @@
 
 ---
 
-## 📊 GitHub Activity
+## ⚡ Recent Activity
 
-<p align="center">
-  <img
-    src="https://github-readme-stats.vercel.app/api?username=PhanManhTan&show_icons=true&hide_border=true&include_all_commits=true"
-    alt="Phan Manh Tan's GitHub statistics"
-  />
+<!--RECENT_ACTIVITY:start-->
+
+<!--RECENT_ACTIVITY:end-->
+
+<p align="right">
+  <sub>Automatically updated by GitHub Actions</sub>
 </p>
 
 ---
