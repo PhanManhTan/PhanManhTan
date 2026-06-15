@@ -89,13 +89,24 @@
 ## 🏃 Last 30 Days Activity
 
 <p align="center">
-  <img
-    src="https://raw.githubusercontent.com/PhanManhTan/PhanManhTan/gh-pages/oguri-run.svg"
-    alt="Phan Manh Tan's GitHub contributions during the last 30 days"
-    width="100%"
-  />
+  <picture>
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="https://raw.githubusercontent.com/PhanManhTan/PhanManhTan/gh-pages/contribution-run-dark.svg"
+    />
+    <source
+      media="(prefers-color-scheme: light)"
+      srcset="https://raw.githubusercontent.com/PhanManhTan/PhanManhTan/gh-pages/contribution-run.svg"
+    />
+    <img
+      src="https://raw.githubusercontent.com/PhanManhTan/PhanManhTan/gh-pages/contribution-run.svg"
+      alt="Phan Manh Tan's contributions during the last 30 days"
+      width="100%"
+    />
+  </picture>
 </p>
 
 <p align="center">
-  <sub>Automatically updated every day by GitHub Actions.</sub>
+  <sub>Designed and automated by Phan Manh Tan.</sub>
 </p>
+

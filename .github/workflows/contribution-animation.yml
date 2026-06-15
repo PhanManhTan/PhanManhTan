@@ -1,0 +1,55 @@
+name: Generate Contribution Animation
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 00:15 daily in Vietnam time.
+    - cron: "15 17 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    name: Generate contribution SVGs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout profile repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Generate SVGs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/generate_contribution_svg.py \
+            --username "${{ github.repository_owner }}" \
+            --output public/contribution-run.svg \
+            --theme light \
+            --days 30
+
+          python scripts/generate_contribution_svg.py \
+            --username "${{ github.repository_owner }}" \
+            --output public/contribution-run-dark.svg \
+            --theme dark \
+            --days 30
+
+      - name: Verify generated files
+        run: |
+          test -f public/contribution-run.svg
+          test -f public/contribution-run-dark.svg
+          ls -lah public
+
+      - name: Publish SVGs to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./public
+          force_orphan: true
+          full_commit_message: "chore: update contribution animation"
