@@ -88,22 +88,32 @@
 
 ---
 
-## ⚡ Recent Activity
+## 🏃 Last 30 Days Activity
 
-<!--RECENT_ACTIVITY:start-->
-1. ⬆️ Pushed undefined commit(s) to [PhanManhTan/PhanManhTan](https://github.com/PhanManhTan/PhanManhTan)<br>
-2. ⬆️ Pushed undefined commit(s) to [PhanManhTan/PhanManhTan](https://github.com/PhanManhTan/PhanManhTan)<br>
-3. ⬆️ Pushed undefined commit(s) to [PhanManhTan/PhanManhTan](https://github.com/PhanManhTan/PhanManhTan)<br>
-4. ⬆️ Pushed undefined commit(s) to [flavoriy/tikto](https://github.com/flavoriy/tikto)<br>
-5. ⬆️ Pushed undefined commit(s) to [flavoriy/.github](https://github.com/flavoriy/.github)<br>
-<!--RECENT_ACTIVITY:end-->
+<p align="center">
+  <picture>
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="https://raw.githubusercontent.com/PhanManhTan/PhanManhTan/gh-pages/oguri-run-dark.svg"
+    />
+    <source
+      media="(prefers-color-scheme: light)"
+      srcset="https://raw.githubusercontent.com/PhanManhTan/PhanManhTan/gh-pages/oguri-run.svg"
+    />
+    <img
+      src="https://raw.githubusercontent.com/PhanManhTan/PhanManhTan/gh-pages/oguri-run.svg"
+      alt="Phan Manh Tan's contributions during the last 30 days"
+      width="100%"
+    />
+  </picture>
+</p>
 
-<p align="right">
-  <sub>Automatically updated by GitHub Actions</sub>
+<p align="center">
+  <sub>Automatically updated every day by GitHub Actions.</sub>
 </p>
 
 ---
 
 <p align="center">
-  <i>Automate repetitive work. Build reliable systems. Keep improving.</i>
+  <i>Learn. Automate. Improve.</i>
 </p>
