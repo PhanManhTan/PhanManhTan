@@ -204,15 +204,13 @@ def generate_svg(
     block_size = min(20.0, max(4.0, block_step * 0.72))
     block_radius = min(5.0, block_size / 4)
 
-    character_width = 122
-    character_height = 90
-    character_y = 62
+    character_width = 132
+    character_height = 98
+    character_y = 58
     character_center_x = character_width / 2
-    character_center_y = character_height / 2
-    character_start_x = start_x - character_center_x + (block_size / 2)
-    character_end_x = start_x + available_width - character_center_x + (block_size / 2)
+    character_start_x = start_x + available_width - 6
+    character_end_x = start_x - character_center_x
     animation_duration = max(8, min(24, block_count * 0.6))
-    spin_duration = 1.5
 
     total_contributions = sum(
         int(contribution["contributionCount"]) for contribution in contributions
@@ -224,11 +222,13 @@ def generate_svg(
         level = str(contribution["contributionLevel"])
         level_index = LEVEL_INDEX.get(level, 0)
         color = theme["levels"][level_index]
-        delay = index * animation_duration / block_count
+        delay = (block_count - index - 1) * animation_duration / block_count
         count = int(contribution["contributionCount"])
         date = html.escape(str(contribution["date"]))
         suffix = "" if count == 1 else "s"
         title = f"{date}: {count} contribution{suffix}"
+        bite_x = x_position - 28
+        bite_y = block_y - 18
 
         blocks.append(
             f"""<g>
@@ -244,8 +244,40 @@ def generate_svg(
   >
     <animate
       attributeName="opacity"
-      values="1;.22;1;1"
-      keyTimes="0;.05;.11;1"
+      values="1;1;.45;0;0;1"
+      keyTimes="0;.03;.08;.14;.72;1"
+      begin="{fmt(delay)}s"
+      dur="{fmt(animation_duration)}s"
+      repeatCount="indefinite"
+    />
+    <animate
+      attributeName="x"
+      values="{fmt(x_position)};{fmt(x_position)};{fmt(bite_x)};{fmt(bite_x)};{fmt(x_position)}"
+      keyTimes="0;.03;.12;.72;1"
+      begin="{fmt(delay)}s"
+      dur="{fmt(animation_duration)}s"
+      repeatCount="indefinite"
+    />
+    <animate
+      attributeName="y"
+      values="{block_y};{block_y};{fmt(bite_y)};{fmt(bite_y)};{block_y}"
+      keyTimes="0;.03;.12;.72;1"
+      begin="{fmt(delay)}s"
+      dur="{fmt(animation_duration)}s"
+      repeatCount="indefinite"
+    />
+    <animate
+      attributeName="width"
+      values="{fmt(block_size)};{fmt(block_size)};4;0;0;{fmt(block_size)}"
+      keyTimes="0;.03;.08;.14;.72;1"
+      begin="{fmt(delay)}s"
+      dur="{fmt(animation_duration)}s"
+      repeatCount="indefinite"
+    />
+    <animate
+      attributeName="height"
+      values="{fmt(block_size)};{fmt(block_size)};4;0;0;{fmt(block_size)}"
+      keyTimes="0;.03;.08;.14;.72;1"
       begin="{fmt(delay)}s"
       dur="{fmt(animation_duration)}s"
       repeatCount="indefinite"
@@ -268,7 +300,7 @@ def generate_svg(
   aria-labelledby="title description"
 >
   <title id="title">{safe_username}'s last {block_count} days of contributions</title>
-  <desc id="description">An animated character moves across a GitHub contribution timeline.</desc>
+  <desc id="description">An animated Docker whale eats a GitHub contribution timeline.</desc>
 
   <rect width="100%" height="100%" rx="18" fill="{theme['background']}" />
   <rect
@@ -320,9 +352,10 @@ def generate_svg(
     <g>
       <animateTransform
         attributeName="transform"
-        type="rotate"
-        values="0 {fmt(character_center_x)} {fmt(character_center_y)};360 {fmt(character_center_x)} {fmt(character_center_y)}"
-        dur="{fmt(spin_duration)}s"
+        type="translate"
+        values="0 0;0 -5;0 0"
+        keyTimes="0;.5;1"
+        dur=".9s"
         repeatCount="indefinite"
       />
       <image
