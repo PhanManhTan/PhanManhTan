@@ -24,7 +24,6 @@
 * ☁️ Interested in cloud infrastructure, automation, and system reliability
 * 🔧 Enjoy turning manual processes into repeatable and automated workflows
 * 📚 Continuously improving my knowledge of AWS, Infrastructure as Code, CI/CD, and Kubernetes
-* 💼 Open to **DevOps Engineering Internship** opportunities
 
 ---
 
