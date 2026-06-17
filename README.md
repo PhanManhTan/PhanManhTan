@@ -5,6 +5,7 @@
 <p align="center">
   <a href="mailto:manhtan06120@gmail.com"><img src="https://img.shields.io/badge/Email-manhtan06120%40gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white" alt="Email"></a>
   <a href="https://www.linkedin.com/in/phanmanhtan"><img src="https://img.shields.io/badge/LinkedIn-Phan_Manh_Tan-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
+  <img src="https://komarev.com/ghpvc/?username=flavoriy&label=Profile%20views&color=0e75b6&style=flat" alt="profile views" />
 </p>
 
 ---
