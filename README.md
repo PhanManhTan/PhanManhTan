@@ -34,45 +34,23 @@
 
 ### ☁️ Cloud & Infrastructure as Code
 
-<p>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="50" />&nbsp;
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original-wordmark.svg" width="50" />&nbsp;
-</p>
+<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" width="40" />  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" width="40" /> 
 
 ### 📦 Containers & Orchestration
 
-<p>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" width="50" />&nbsp;
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain-wordmark.svg" width="50" />&nbsp;
-</p>
+<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" width="40" />  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-original.svg" width="40" /> 
 
 ### 🚀 CI/CD & GitOps
 
-<p>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" width="40" />&nbsp;
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/githubactions/githubactions-original.svg" width="40" />&nbsp;
-  <img src="https://argo-cd.readthedocs.io/en/stable/assets/logo.png" width="40" alt="Argo CD" />&nbsp;
-</p>
+<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" width="40" />  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/githubactions/githubactions-original.svg" width="40" />  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/argocd/argocd-original.svg" width="40" /> 
 
 ### 📊 Monitoring & Security
 
-<p>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/prometheus/prometheus-original.svg" width="40" />&nbsp;
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/grafana/grafana-original.svg" width="40" />&nbsp;
-  <img src="https://cdn.simpleicons.org/sonarqube/4E9BCD" width="40" alt="SonarQube" />&nbsp;
-  <img src="https://cdn.simpleicons.org/aqua/1904DA" width="40" alt="Trivy" />&nbsp;
-  <img src="https://cdn.simpleicons.org/checkmarx/5C4EE5" width="40" alt="Checkov" />&nbsp;
-</p>
+<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/prometheus/prometheus-original.svg" width="40" />  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/grafana/grafana-original.svg" width="40" /> 
 
 ### 💻 Systems & Scripting
 
-<p>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" width="40" />&nbsp;
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bash/bash-original.svg" width="40" />&nbsp;
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" width="40" />&nbsp;
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" width="40" />&nbsp;
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original.svg" width="40" />&nbsp;
-</p>
+<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" width="40" />  <picture> <source media="(prefers-color-scheme: dark)" srcset="https://cdn.simpleicons.org/gnubash/FFFFFF" /> <source media="(prefers-color-scheme: light)" srcset="https://cdn.simpleicons.org/gnubash/4EAA25" /> <img src="https://cdn.simpleicons.org/gnubash/4EAA25" width="40" alt="Bash" /> </picture>  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" width="40" />  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" width="40" />  <picture> <source media="(prefers-color-scheme: dark)" srcset="https://cdn.simpleicons.org/github/FFFFFF" /> <source media="(prefers-color-scheme: light)" srcset="https://cdn.simpleicons.org/github/181717" /> <img src="https://cdn.simpleicons.org/github/181717" width="40" alt="GitHub" /> </picture>
 
 ---
 
