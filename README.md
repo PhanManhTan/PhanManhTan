@@ -37,7 +37,6 @@
 <p>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="50" />&nbsp;
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original-wordmark.svg" width="50" />&nbsp;
-  <img src="https://cdn.simpleicons.org/amazonaws/FF9900" width="40" alt="CloudFormation" title="AWS CloudFormation" />&nbsp;
 </p>
 
 ### 📦 Containers & Orchestration
@@ -45,7 +44,6 @@
 <p>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" width="50" />&nbsp;
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain-wordmark.svg" width="50" />&nbsp;
-  <img src="https://cdn.simpleicons.org/k3s/FFC61C" width="40" alt="K3s" title="K3s" />&nbsp;
 </p>
 
 ### 🚀 CI/CD & GitOps
