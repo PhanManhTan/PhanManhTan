@@ -39,7 +39,9 @@
 
 ---
 
-## 🏃 Last 30 Days Activity
+## 👾 Contribution Arcade
+
+My last year of GitHub activity, reimagined as a Pac-Man arcade.
 
 <p align="center">
   <picture>
@@ -53,13 +55,13 @@
     />
     <img
       src="https://raw.githubusercontent.com/PhanManhTan/PhanManhTan/gh-pages/contribution-run.svg"
-      alt="Phan Manh Tan's contributions during the last 30 days"
+      alt="Pac-Man animation of Phan Manh Tan's GitHub contributions over the last year"
       width="100%"
     />
   </picture>
 </p>
 
 <p align="center">
-  <sub>Designed and automated by Phan Manh Tan.</sub>
+  <sub>Updated daily with GitHub Actions · Powered by <a href="https://github.com/abozanona/pacman-contribution-graph">Pac-Man Contribution Graph</a>.</sub>
 </p>
 

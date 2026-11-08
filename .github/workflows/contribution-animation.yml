@@ -1,6 +1,9 @@
-name: Generate Contribution Animation
+name: Update Contribution Arcade
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
   schedule:
     # 00:15 daily in Vietnam time.
@@ -9,47 +12,56 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: contribution-arcade-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   generate:
-    name: Generate contribution SVGs
+    name: Generate and publish Pac-Man SVGs
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout profile repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          python-version: "3.x"
+          persist-credentials: false
 
-      - name: Generate SVGs
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate light and dark Pac-Man graphs
+        uses: abozanona/pacman-contribution-graph@7332e1de7903ab780c3692a4127a59cc13872daa # v5.3.2
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          # Automatically supplied by GitHub Actions; no personal access token needed.
+          github_token: ${{ github.token }}
+          games: pacman
+
+      - name: Verify and stage generated SVGs
         run: |
-          python scripts/generate_contribution_svg.py \
-            --username "${{ github.repository_owner }}" \
-            --output public/contribution-run.svg \
-            --theme light \
-            --days 30
+          python3 - <<'PY'
+          from pathlib import Path
+          import shutil
+          import xml.etree.ElementTree as ET
 
-          python scripts/generate_contribution_svg.py \
-            --username "${{ github.repository_owner }}" \
-            --output public/contribution-run-dark.svg \
-            --theme dark \
-            --days 30
+          for suffix in ("", "-dark"):
+              source = Path(f"dist/pacman-contribution-graph{suffix}.svg")
+              if ET.parse(source).getroot().tag != "{http://www.w3.org/2000/svg}svg":
+                  raise SystemExit(f"Invalid SVG: {source}")
 
-      - name: Verify generated files
-        run: |
-          test -f public/contribution-run.svg
-          test -f public/contribution-run-dark.svg
-          ls -lah public
+          # Preserve the existing public URLs used by the profile README.
+          output = Path("public")
+          output.mkdir(exist_ok=True)
+          for suffix in ("", "-dark"):
+              source = Path(f"dist/pacman-contribution-graph{suffix}.svg")
+              destination = output / f"contribution-run{suffix}.svg"
+              shutil.copyfile(source, destination)
+              print(f"Verified: {destination} ({destination.stat().st_size} bytes)")
+          PY
 
       - name: Publish SVGs to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4
         with:
-          # github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
           publish_branch: gh-pages
           publish_dir: ./public
-          force_orphan: true
-          full_commit_message: "chore: update contribution animation"
+          full_commit_message: "chore: update Pac-Man contribution arcade"
