@@ -38,10 +38,7 @@
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" width="40" />  <picture> <source media="(prefers-color-scheme: dark)" srcset="https://cdn.simpleicons.org/gnubash/FFFFFF" /> <source media="(prefers-color-scheme: light)" srcset="https://cdn.simpleicons.org/gnubash/4EAA25" /> <img src="https://cdn.simpleicons.org/gnubash/4EAA25" width="40" alt="Bash" /> </picture>  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" width="40" />  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" width="40" />  <picture> <source media="(prefers-color-scheme: dark)" srcset="https://cdn.simpleicons.org/github/FFFFFF" /> <source media="(prefers-color-scheme: light)" srcset="https://cdn.simpleicons.org/github/181717" /> <img src="https://cdn.simpleicons.org/github/181717" width="40" alt="GitHub" /> </picture>
 
 ---
-
-## 👾 Contribution Arcade
-
-My last year of GitHub activity, reimagined as a Pac-Man arcade.
+## 👨‍💻 Contribution 
 
 <p align="center">
   <picture>
@@ -55,13 +52,8 @@ My last year of GitHub activity, reimagined as a Pac-Man arcade.
     />
     <img
       src="https://raw.githubusercontent.com/PhanManhTan/PhanManhTan/gh-pages/contribution-run.svg"
-      alt="Pac-Man animation of Phan Manh Tan's GitHub contributions over the last year"
+      alt="Bomberman animation"
       width="100%"
     />
   </picture>
 </p>
-
-<p align="center">
-  <sub>Updated daily with GitHub Actions · Powered by <a href="https://github.com/abozanona/pacman-contribution-graph">Pac-Man Contribution Graph</a>.</sub>
-</p>
-

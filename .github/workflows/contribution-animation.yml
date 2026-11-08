@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   generate:
-    name: Generate and publish Pac-Man SVGs
+    name: Generate and publish Bomberman SVGs
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -28,13 +28,14 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Generate light and dark Pac-Man graphs
+      - name: Generate light and dark Bomberman graphs
         uses: abozanona/pacman-contribution-graph@7332e1de7903ab780c3692a4127a59cc13872daa # v5.3.2
         with:
           github_user_name: ${{ github.repository_owner }}
           # Automatically supplied by GitHub Actions; no personal access token needed.
           github_token: ${{ github.token }}
-          games: pacman
+          games: bomberman
+          hide_month_labels: "true"
 
       - name: Verify and stage generated SVGs
         run: |
@@ -44,7 +45,7 @@ jobs:
           import xml.etree.ElementTree as ET
 
           for suffix in ("", "-dark"):
-              source = Path(f"dist/pacman-contribution-graph{suffix}.svg")
+              source = Path(f"dist/bomberman-contribution-graph{suffix}.svg")
               if ET.parse(source).getroot().tag != "{http://www.w3.org/2000/svg}svg":
                   raise SystemExit(f"Invalid SVG: {source}")
 
@@ -52,7 +53,7 @@ jobs:
           output = Path("public")
           output.mkdir(exist_ok=True)
           for suffix in ("", "-dark"):
-              source = Path(f"dist/pacman-contribution-graph{suffix}.svg")
+              source = Path(f"dist/bomberman-contribution-graph{suffix}.svg")
               destination = output / f"contribution-run{suffix}.svg"
               shutil.copyfile(source, destination)
               print(f"Verified: {destination} ({destination.stat().st_size} bytes)")
@@ -64,4 +65,4 @@ jobs:
           github_token: ${{ github.token }}
           publish_branch: gh-pages
           publish_dir: ./public
-          full_commit_message: "chore: update Pac-Man contribution arcade"
+          full_commit_message: "chore: update Bomberman contribution animation"
