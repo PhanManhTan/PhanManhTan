@@ -28,14 +28,13 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Generate light and dark Bomberman graphs
-        uses: abozanona/pacman-contribution-graph@7332e1de7903ab780c3692a4127a59cc13872daa # v5.3.2
+      - name: generate-pacman-game-from-github-contribution-grid
+        uses: abozanona/pacman-contribution-graph@v5.0.0
         with:
           github_user_name: ${{ github.repository_owner }}
           # Automatically supplied by GitHub Actions; no personal access token needed.
           github_token: ${{ github.token }}
           games: bomberman
-          hide_month_labels: "true"
 
       - name: Verify and stage generated SVGs
         run: |
